@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
 import ItemCard from "./components/ItemCard";
+import LoginPage from './pages/LoginPage';
+import RegisterPage from "./pages/RegisterPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -38,6 +41,15 @@ function App() {
                 <li className="nav-item">
                   <Link to="/cart" className="nav-link">Cart</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/login" className="nav-link">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/register" className="nav-link">Register</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/profile" className="nav-link">Profile</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -48,6 +60,9 @@ function App() {
             <Route path="/" element={<ProductList onAddToCart={handleAddToCart} />} />
             <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
             <Route path="/cart" element={<ItemCard cart={cart} />} />
+            <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </div>
       </div>
