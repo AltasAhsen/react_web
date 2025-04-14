@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import mockProducts from "./mockData";
+// import { productApi } from "../services/api";
 
 function ProductDetail({ onAddToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // fetch(`http://localhost:5000/api/products/${id}`)
-    //   .then((res) => res.json())
-    //   .then((data) => setProduct(data));
+    setLoading(true);
+    
+    // Back-end entegrasyonu için:
+    /*
+    productApi.getById(id)
+      .then(response => {
+        setProduct(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+    */
+    
+    // Mock data kullanımı (geçici çözüm)
     const selectedProduct = mockProducts.find((p) => p.id === parseInt(id));
     setProduct(selectedProduct);
+    setLoading(false);
   }, [id]);
 
-  if (!product) return <div className="container mt-4">Loading...</div>;
+  if (loading) return <div className="container mt-4">Loading...</div>;
+  if (error) return <div className="container mt-4">Error: {error}</div>;
+  if (!product) return <div className="container mt-4">Product not found</div>;
 
   return (
     <div className="container mt-4">

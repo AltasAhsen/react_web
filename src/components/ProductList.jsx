@@ -1,16 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import mockProducts from "./mockData";
+// import { productApi } from "../services/api";
 
 function ProductList({ onAddToCart }) {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // fetch("http://localhost:5000/api/products")
-    //   .then((res) => res.json())
-    //   .then((data) => setProducts(data));
+    setLoading(true);
+    
+    // Back-end entegrasyonu için:
+    /* 
+    productApi.getAll()
+      .then(response => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+    */
+    
+    // Mock data kullanımı (geçici çözüm)
     setProducts(mockProducts);
+    setLoading(false);
   }, []);
+
+  if (loading) return <div className="container mt-4">Loading...</div>;
+  if (error) return <div className="container mt-4">Error: {error}</div>;
 
   return (
     <div className="container mt-4">
